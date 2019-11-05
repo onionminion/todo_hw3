@@ -11,7 +11,7 @@ class Navbar extends React.Component {
   render() {
     const { auth, profile } = this.props;
     const links = auth.uid ? <LoggedInLinks profile={profile} /> : <LoggedOutLinks />;
-
+    
     return (
       <nav className="nav-wrapper grey darken-3">
         <div className="container">

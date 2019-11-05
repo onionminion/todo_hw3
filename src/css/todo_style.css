@@ -9,8 +9,16 @@
   --swatch-complement:    #E1E4CB; /* USED IN FORGROUND OF PRIMARY FOR TEXT AND BORDERS */
   --swatch_contrast:      #111111; /* USED IN MOUSE-OVER SELECTION OF LARGE ELEMENTS */
   --swatch-accent:        #669966; /* USED IN MOUSE-OVER SELECTION OF TEXT AND BORDERS */    
-  --my-font-family:          "Robaaaoto";
+  /* --my-font-family:         'Lexend Exa'; */
   --bounceEasing: cubic-bezier(0.51, 0.92, 0.24, 1.15);
+}
+
+@font-face {
+  font-family: 'Lexend Exa';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Lexend Exa Regular'), local('LexendExa-Regular'), url('UMBXrPdOoHOnxExyjdBeai3dAw.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 body {

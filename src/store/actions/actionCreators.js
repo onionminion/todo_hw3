@@ -43,3 +43,11 @@ export function createTodoListError(error) {
         error
     }
 }
+
+export function updateTodoListSuccess() {
+    return { type: 'UPDATE_SUCCESS' }
+}
+
+export function updateTodoListError(error) {
+    return { type: 'UPDATE_ERROR', error }
+};
