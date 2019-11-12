@@ -13,7 +13,7 @@ class TodoListLinks extends React.Component {
         console.log(todoLists);
         return (
             <div className="todo-lists section">
-                {todoLists && todoLists.map(todoList => (
+                {todoLists && todoLists.sort((a, b) => a.priority < b.priority).map(todoList => (
                     <Link to={'/todoList/' + todoList.id} key={todoList.id} onClick={() => handleSort(todoList)}>
                         <TodoListCard todoList={todoList} />
                     </Link>

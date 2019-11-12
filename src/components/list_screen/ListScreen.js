@@ -75,6 +75,6 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
-        { collection: 'todoLists', orderBy: ['priority', 'desc'] }
+        { collection: 'todoLists'}
     ]),
 )(ListScreen);

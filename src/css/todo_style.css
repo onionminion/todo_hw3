@@ -46,3 +46,18 @@ div.banner {
 .home_new_list_button:hover {
   box-shadow: 1px 2px;
 }
+.font-10 {
+  font-size: 10pt !important;
+}
+.font-15 {
+  font-size: 15pt !important;
+}
+.font-17 {
+  font-size: 17pt !important;
+}
+.padding-24 {
+  padding-left: 24pt !important;
+}
+.clickable {
+  cursor: pointer;
+}
