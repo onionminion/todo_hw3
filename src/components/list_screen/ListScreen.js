@@ -18,11 +18,11 @@ class ListScreen extends Component {
 
     handleChange = (e) => {
         const { target } = e;
-        this.setState({priority: this.props.todoList.priority});
+        this.setState({ priority: this.props.todoList.priority });
         this.setState(state => ({
             ...state,
             [target.id]: target.value,
-        }), ()=>this.handleUpdate());
+        }), () => this.handleUpdate());
     }
 
     handleUpdate = () => {
@@ -57,24 +57,24 @@ class ListScreen extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { id } = ownProps.match.params;
-  const { todoLists } = state.firestore.data;
-  const todoList = todoLists ? todoLists[id] : null;
-  todoList.id = id;
+    const { id } = ownProps.match.params;
+    const { todoLists } = state.firestore.data;
+    const todoList = todoLists ? todoLists[id] : null;
+    todoList.id = id;
 
-  return {
-    todoList,
-    auth: state.firebase.auth,
-  };
+    return {
+        todoList,
+        auth: state.firebase.auth,
+    };
 };
 
 const mapDispatchToProps = dispatch => ({
     update: (todoList) => dispatch(updateTodoListHandler(todoList)),
-});  
+});
 
 export default compose(
-  connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect([
-    { collection: 'todoLists' , orderBy: ['priority', 'desc']}
-  ]),
+    connect(mapStateToProps, mapDispatchToProps),
+    firestoreConnect([
+        { collection: 'todoLists', orderBy: ['priority', 'desc'] }
+    ]),
 )(ListScreen);

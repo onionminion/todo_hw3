@@ -37,6 +37,7 @@ export function createTodoList(todoList) {
         todoList
     }
 }
+
 export function createTodoListError(error) {
     return {
         type: 'CREATE_TODO_LIST_ERROR',
