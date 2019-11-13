@@ -67,3 +67,14 @@ export const updateTodoListHandler = (todoList) => (dispatch, getState, { getFir
         console.log(err);
     });
 };
+
+export const deleteTodoListHandler = (todoList) => (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    firestore.collection('todoLists').doc(todoList.id).delete(
+    ).then(() => {
+        dispatch(actionCreators.deleteTodoListSuccess);
+    }).catch((err) => {
+        dispatch(actionCreators.deleteTodoListError(err));
+        console.log(err);
+    });
+};

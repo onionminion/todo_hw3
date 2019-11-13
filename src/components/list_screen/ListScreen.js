@@ -3,17 +3,18 @@ import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
+import ListModal from './ListModal.js';
 import { firestoreConnect } from 'react-redux-firebase';
 import { getFirestore } from 'redux-firestore';
 import { updateTodoListHandler } from '../../store/database/asynchHandler'
 
 class ListScreen extends Component {
     state = {
-        name: this.props.todoList.name,
-        owner: this.props.todoList.owner,
-        items: this.props.todoList.items,
-        id: this.props.todoList.id,
-        priority: this.props.todoList.priority
+        name: this.props.todoList ? this.props.todoList.name : "",
+        owner: this.props.todoList ? this.props.todoList.owner : "",
+        items: this.props.todoList ? this.props.todoList.items : [],
+        id: this.props.todoList ? this.props.todoList.id : "",
+        priority: this.props.todoList ? this.props.todoList.priority : 0
     }
 
     handleChange = (e) => {
@@ -38,10 +39,15 @@ class ListScreen extends Component {
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
+        if(!todoList)
+	        return <React.Fragment />
 
         return (
-            <div className="container white">
-                <h5 className="grey-text text-darken-3">Todo List</h5>
+            <div className="container white width-80">
+                <div className="row header-style">
+                    <ListModal className="col s1 margin" todoList={todoList}/>
+                    <div className="col s11 grey-text text-darken-3 font-17">Todo List</div>
+                </div>
                 <div className="input-field">
                     <label htmlFor="email" className="active">Name</label>
                     <input className="active" type="text" name="name" id="name" onChange={this.handleChange} defaultValue={todoList.name} />
@@ -60,8 +66,8 @@ const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps.match.params;
     const { todoLists } = state.firestore.data;
     const todoList = todoLists ? todoLists[id] : null;
-    todoList.id = id;
-
+    if(todoList)
+	    todoList.id = id;
     return {
         todoList,
         auth: state.firebase.auth,

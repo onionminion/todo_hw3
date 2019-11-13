@@ -43,7 +43,7 @@ class HomeScreen extends Component {
             return <Redirect to="/login" />;
         }
         return (
-            <div className="dashboard container">
+            <div className="dashboard container width-80">
                 <div className="row">
                     <div className="col s12 m4">
                         <TodoListLinks handleSort={this.handleSort}/>

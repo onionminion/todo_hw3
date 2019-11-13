@@ -52,3 +52,11 @@ export function updateTodoListSuccess() {
 export function updateTodoListError(error) {
     return { type: 'UPDATE_ERROR', error }
 };
+
+export function deleteTodoListSuccess() {
+    return { type: 'DELETE_SUCCESS' }
+}
+
+export function deleteTodoListError(error) {
+    return { type: 'DELETE_ERROR', error }
+};
