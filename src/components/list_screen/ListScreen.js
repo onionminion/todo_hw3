@@ -64,8 +64,14 @@ class ListScreen extends Component {
 
 const mapStateToProps = (state, ownProps) => {
     const { id } = ownProps.match.params;
-    const { todoLists } = state.firestore.data;
-    const todoList = todoLists ? todoLists[id] : null;
+    const todoLists = state.firestore.ordered.todoLists;
+    let todoList = null;
+    if (todoLists) {
+        for (let i in todoLists) {
+            if (todoLists[i].id === id)
+                todoList = todoLists[i];
+        }
+    }
     if(todoList)
 	    todoList.id = id;
     return {

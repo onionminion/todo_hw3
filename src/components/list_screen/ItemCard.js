@@ -1,7 +1,12 @@
 import React from 'react';
 import { Icon, Button } from 'react-materialize';
+import { updateTodoListHandler } from '../../store/database/asynchHandler'
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 
 class ItemCard extends React.Component {
+    todoList = this.props.todoList;
+
     getCompleted = (item) => {
         if (item.completed) {
             return "Completed";
@@ -11,8 +16,67 @@ class ItemCard extends React.Component {
         }
     }
 
+    deleteItem = (item) => {
+        const newItems = this.todoList.items.filter(x => x.id !== item.id);
+        const { props } = this;
+        this.todoList.items = newItems;
+        props.update(this.todoList);
+    }
+
+    moveItemDown = (item) => {
+        let currentIndex = this.todoList.items.indexOf(item);
+        if (currentIndex < this.todoList.items.length - 1) {
+            this.todoList.items[currentIndex] = this.todoList.items[currentIndex + 1];
+            this.todoList.items[currentIndex + 1] = item;
+            const { props } = this;
+            props.update(this.todoList);
+        }
+    }
+
+    moveItemUp = (item) => {
+        let currentIndex = this.todoList.items.indexOf(item);
+		if (currentIndex > 0) {
+			this.todoList.items[currentIndex] = this.todoList.items[currentIndex - 1];
+            this.todoList.items[currentIndex - 1] = item;
+            const { props } = this;
+            props.update(this.todoList);
+		}
+    }
+    
+    disableUp = (item) => {
+        if (this.todoList.items.indexOf(item) === 0) {
+            return {
+                background: 'gray',
+                cursor: 'default',
+                bottom: "3.8px",
+            }
+        }
+        else {
+            return {
+                bottom: "3.8px",
+                background: "#fdd835"
+            }
+        }
+    }
+
+    disableDown = (item) => {
+        if (this.todoList.items.indexOf(item) === this.todoList.items.length-1) {
+            return {
+                background: 'gray',
+                cursor: 'default',
+                bottom: "3.8px"
+            }
+        }
+        else {
+            return {
+                bottom: "3.8px",
+                background: '#4CAF50'
+            }
+        }
+    }
+
     render() {
-        const { item } = this.props;  
+        const item = this.props.item;
         return (
             <div className="card z-depth-0 todo-list-link pink lighten-3">
                 <div className="card-content grey-text text-darken-3">
@@ -33,11 +97,13 @@ class ItemCard extends React.Component {
                         </div>
                         <div className="col s2">
                             <span className="card-title description-layout">&nbsp;</span>
-                            <Button floating fab={{direction: 'left'}} style={{position: "relative", bottom: "0px",
-                            padding: "0 0 0 38px", right: "0px", left: "50px"}} className="red" medium>
-                                <Button floating icon={<Icon>arrow_upward</Icon>} style={{bottom: "3.8px"}} className="yellow darken-1" small/>
-                                <Button floating icon={<Icon>arrow_downward</Icon>} style={{bottom: "3.8px"}} className="green" small/>
-                                <Button floating icon={<Icon>close</Icon>} style={{bottom: "3.8px"}} className="blue" small/>
+                            <Button floating fab={{ direction: 'left' }} style={{
+                                position: "relative", bottom: "0px",
+                                padding: "0 0 0 38px", right: "0px", left: "50px"
+                            }} className="red" default>
+                                <Button floating icon={<Icon>arrow_upward</Icon>} style={this.disableUp(item)} onClick={() => this.moveItemUp(item)} small/>
+                                <Button floating icon={<Icon>arrow_downward</Icon>} style={this.disableDown(item)} onClick={() => this.moveItemDown(item)} small />
+                                <Button floating icon={<Icon>close</Icon>} style={{ bottom: "3.8px" }} onClick={() => this.deleteItem(item)} className="blue" small />
                             </Button>
                         </div>
                     </div>
@@ -46,4 +112,9 @@ class ItemCard extends React.Component {
         );
     }
 }
-export default ItemCard;
+const mapDispatchToProps = dispatch => ({
+    update: (todoList) => dispatch(updateTodoListHandler(todoList)),
+});
+
+export default compose(
+    connect(null, mapDispatchToProps))(ItemCard);

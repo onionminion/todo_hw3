@@ -10,7 +10,7 @@ import { updateTodoListHandler } from '../../store/database/asynchHandler'
 class HomeScreen extends Component {
     getMaxPriority = () => {
         if (this.props.todoLists[0]) {
-            if (this.props.todoLists.length == 1) 
+            if (this.props.todoLists.length === 1) 
                 return 1;
             else {
                 return this.props.todoLists.reduce(function(l1, l2) {
@@ -32,12 +32,6 @@ class HomeScreen extends Component {
         props.create(todoList);
     }
 
-    handleSort = (todoList) => {   
-        const { props } = this;
-        todoList.priority = this.getMaxPriority() + 1;
-        props.update(todoList);
-    }
-
     render() {
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
@@ -46,7 +40,7 @@ class HomeScreen extends Component {
             <div className="dashboard container width-80">
                 <div className="row">
                     <div className="col s12 m4">
-                        <TodoListLinks handleSort={this.handleSort}/>
+                        <TodoListLinks todoLists={this.props.todoLists}/>
                     </div>
 
                     <div className="col s8">

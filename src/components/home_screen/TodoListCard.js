@@ -4,8 +4,6 @@ class TodoListCard extends React.Component {
 
     render() {
         const { todoList } = this.props;
-        console.log("TodoListCard, todoList.id: " + todoList.id);
-        console.log("name: " + todoList.name);
 
         return (
             <div className="card z-depth-0 todo-list-link" >
