@@ -35,43 +35,39 @@ class ItemCard extends React.Component {
 
     moveItemUp = (item) => {
         let currentIndex = this.todoList.items.indexOf(item);
-		if (currentIndex > 0) {
-			this.todoList.items[currentIndex] = this.todoList.items[currentIndex - 1];
+        if (currentIndex > 0) {
+            this.todoList.items[currentIndex] = this.todoList.items[currentIndex - 1];
             this.todoList.items[currentIndex - 1] = item;
             const { props } = this;
             props.update(this.todoList);
-		}
-    }
-    
-    disableUp = (item) => {
-        if (this.todoList.items.indexOf(item) === 0) {
-            return {
-                background: 'gray',
-                cursor: 'default',
-                bottom: "3.8px",
-            }
-        }
-        else {
-            return {
-                bottom: "3.8px",
-                background: "#fdd835"
-            }
         }
     }
 
-    disableDown = (item) => {
-        if (this.todoList.items.indexOf(item) === this.todoList.items.length-1) {
-            return {
-                background: 'gray',
-                cursor: 'default',
-                bottom: "3.8px"
-            }
+    disableUp = () => {
+        return {
+            background: 'gray',
+            cursor: 'default',
+            bottom: "3.8px",
         }
-        else {
-            return {
-                bottom: "3.8px",
-                background: '#4CAF50'
-            }
+    }
+    enableUp = () => {
+        return {
+            bottom: "3.8px",
+            background: "#fdd835"
+        }
+    }
+
+    disableDown = () => {
+        return {
+            background: 'gray',
+            cursor: 'default',
+            bottom: "3.8px"
+        }
+    }
+    enableDown = () => {
+        return {
+            bottom: "3.8px",
+            background: '#4CAF50'
         }
     }
 
@@ -101,8 +97,8 @@ class ItemCard extends React.Component {
                                 position: "relative", bottom: "0px",
                                 padding: "0 0 0 38px", right: "0px", left: "50px"
                             }} className="red" default>
-                                <Button floating icon={<Icon>arrow_upward</Icon>} style={this.disableUp(item)} onClick={() => this.moveItemUp(item)} small/>
-                                <Button floating icon={<Icon>arrow_downward</Icon>} style={this.disableDown(item)} onClick={() => this.moveItemDown(item)} small />
+                                <Button floating icon={<Icon>arrow_upward</Icon>} style={this.props.isFirst ? this.disableUp() : this.enableUp()} onClick={() => this.moveItemUp(item)} small />
+                                <Button floating icon={<Icon>arrow_downward</Icon>} style={this.props.isLast ? this.disableDown() : this.enableDown()} onClick={() => this.moveItemDown(item)} small />
                                 <Button floating icon={<Icon>close</Icon>} style={{ bottom: "3.8px" }} onClick={() => this.deleteItem(item)} className="blue" small />
                             </Button>
                         </div>

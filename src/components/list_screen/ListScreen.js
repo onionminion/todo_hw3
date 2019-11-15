@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import ItemsList from './ItemsList.js'
 import ListModal from './ListModal.js';
+import { Icon, Button } from 'react-materialize';
 import { firestoreConnect } from 'react-redux-firebase';
-import { getFirestore } from 'redux-firestore';
-import { updateTodoListHandler } from '../../store/database/asynchHandler'
+import { updateTodoListHandler } from '../../store/database/asynchHandler';
 
 class ListScreen extends Component {
     state = {
@@ -39,24 +39,29 @@ class ListScreen extends Component {
         if (!auth.uid) {
             return <Redirect to="/" />;
         }
-        if(!todoList)
-	        return <React.Fragment />
+        if (!todoList)
+            return <React.Fragment />
 
         return (
             <div className="container white width-80">
                 <div className="row header-style">
-                    <ListModal className="col s1 margin" todoList={todoList}/>
+                    <ListModal className="col s1 margin" todoList={todoList} />
                     <div className="col s11 grey-text text-darken-3 font-17">Todo List</div>
                 </div>
-                <div className="input-field">
-                    <label htmlFor="email" className="active">Name</label>
+                <div className="input-field padding-17">
+                    <label htmlFor="name" className="active padding-17">Name</label>
                     <input className="active" type="text" name="name" id="name" onChange={this.handleChange} defaultValue={todoList.name} />
                 </div>
-                <div className="input-field">
-                    <label htmlFor="password" className="active">Owner</label>
+                <div className="input-field padding-17">
+                    <label htmlFor="owner" className="active padding-17">Owner</label>
                     <input className="active" type="text" name="owner" id="owner" onChange={this.handleChange} defaultValue={todoList.owner} />
                 </div>
                 <ItemsList todoList={todoList} />
+                <div className="add center">
+                    <Link to={'/todoList/' + todoList.id + '/newItem'} params={{}}>
+                        <Button floating icon={<Icon>add</Icon>} style={{backgroundColor: "black", borderRadius: '15%'}}large />
+                    </Link>
+                </div>
             </div>
         );
     }
@@ -72,8 +77,8 @@ const mapStateToProps = (state, ownProps) => {
                 todoList = todoLists[i];
         }
     }
-    if(todoList)
-	    todoList.id = id;
+    if (todoList)
+        todoList.id = id;
     return {
         todoList,
         auth: state.firebase.auth,
@@ -87,6 +92,6 @@ const mapDispatchToProps = dispatch => ({
 export default compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
-        { collection: 'todoLists'}
+        { collection: 'todoLists' }
     ]),
 )(ListScreen);

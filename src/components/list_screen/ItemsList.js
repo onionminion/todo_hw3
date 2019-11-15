@@ -10,7 +10,7 @@ class ItemsList extends React.Component {
 	}
 	statusClicked = false;
     taskClicked = false;
-    dueDateClicked = false;
+	dueDateClicked = false;
     sortByTask  = () => {
 		this.taskClicked = !this.taskClicked;
 		if (this.taskClicked)
@@ -92,11 +92,17 @@ class ItemsList extends React.Component {
                     <div className="col s3 clickable" onClick={() => this.sortByStatus()}>Status</div>
                 </div>
                 {items && items.map(function(item) {
-                    item.id = item.key;
+					let isLast = false;
+					let isFirst = false;
+					item.id = item.key;
+					if (items.indexOf(item) === 0)
+						isFirst = true;
+					if (items.indexOf(item) >= items.length-1)
+						isLast = true;
                     return (
-                        <ItemCard todoList={todoList} item={item}/>
-                    );})
-                }
+                        <ItemCard todoList={todoList} item={item} isFirst={isFirst} isLast={isLast}/>
+					);
+				})}
             </div>
         );
     }

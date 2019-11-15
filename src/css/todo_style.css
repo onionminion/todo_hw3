@@ -97,3 +97,18 @@ div.banner {
     top: 30% !important;
     width: 50% !important;
 }
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding-bottom: 27px;
+  }
+
+.padding-17 {
+    padding-left: 17px;
+}
+
+.no-padding-margin {
+    padding-left: 0px;
+    margin-top: 0px;
+}
