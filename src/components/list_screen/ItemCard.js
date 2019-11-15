@@ -16,14 +16,16 @@ class ItemCard extends React.Component {
         }
     }
 
-    deleteItem = (item) => {
+    deleteItem = (event, item) => {
+        event.preventDefault();
         const newItems = this.todoList.items.filter(x => x.id !== item.id);
         const { props } = this;
         this.todoList.items = newItems;
         props.update(this.todoList);
     }
 
-    moveItemDown = (item) => {
+    moveItemDown = (event, item) => {
+        event.preventDefault();
         let currentIndex = this.todoList.items.indexOf(item);
         if (currentIndex < this.todoList.items.length - 1) {
             this.todoList.items[currentIndex] = this.todoList.items[currentIndex + 1];
@@ -33,7 +35,8 @@ class ItemCard extends React.Component {
         }
     }
 
-    moveItemUp = (item) => {
+    moveItemUp = (event, item) => {
+        event.preventDefault();
         let currentIndex = this.todoList.items.indexOf(item);
         if (currentIndex > 0) {
             this.todoList.items[currentIndex] = this.todoList.items[currentIndex - 1];
@@ -97,9 +100,9 @@ class ItemCard extends React.Component {
                                 position: "relative", bottom: "0px",
                                 padding: "0 0 0 38px", right: "0px", left: "50px"
                             }} className="red" default>
-                                <Button floating icon={<Icon>arrow_upward</Icon>} style={this.props.isFirst ? this.disableUp() : this.enableUp()} onClick={() => this.moveItemUp(item)} small />
-                                <Button floating icon={<Icon>arrow_downward</Icon>} style={this.props.isLast ? this.disableDown() : this.enableDown()} onClick={() => this.moveItemDown(item)} small />
-                                <Button floating icon={<Icon>close</Icon>} style={{ bottom: "3.8px" }} onClick={() => this.deleteItem(item)} className="blue" small />
+                                <Button floating icon={<Icon>arrow_upward</Icon>} style={this.props.isFirst ? this.disableUp() : this.enableUp()} onClick={(event) => this.moveItemUp(event, item)} small />
+                                <Button floating icon={<Icon>arrow_downward</Icon>} style={this.props.isLast ? this.disableDown() : this.enableDown()} onClick={(event) => this.moveItemDown(event, item)} small />
+                                <Button floating icon={<Icon>close</Icon>} style={{ bottom: "3.8px" }} onClick={(event) => this.deleteItem(event, item)} className="blue" small />
                             </Button>
                         </div>
                     </div>

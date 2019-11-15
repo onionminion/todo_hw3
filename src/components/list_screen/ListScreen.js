@@ -58,7 +58,7 @@ class ListScreen extends Component {
                 </div>
                 <ItemsList todoList={todoList} />
                 <div className="add center">
-                    <Link to={'/todoList/' + todoList.id + '/newItem'} params={{}}>
+                    <Link to={'/todoList/' + todoList.id + '/newItem'} params={{isNew: true}}>
                         <Button floating icon={<Icon>add</Icon>} style={{backgroundColor: "black", borderRadius: '15%'}}large />
                     </Link>
                 </div>
