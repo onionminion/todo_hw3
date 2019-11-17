@@ -7,6 +7,7 @@ import ListModal from './ListModal.js';
 import { Icon, Button } from 'react-materialize';
 import { firestoreConnect } from 'react-redux-firebase';
 import { updateTodoListHandler } from '../../store/database/asynchHandler';
+import uuid from 'uuid';
 
 class ListScreen extends Component {
     state = {
@@ -58,7 +59,7 @@ class ListScreen extends Component {
                 </div>
                 <ItemsList todoList={todoList} />
                 <div className="add center">
-                    <Link to={'/todoList/' + todoList.id + '/newItem'} params={{isNew: true}}>
+                    <Link to={'/todoList/' + todoList.id + '/new/' + uuid.v4()}>
                         <Button floating icon={<Icon>add</Icon>} style={{backgroundColor: "black", borderRadius: '15%'}}large />
                     </Link>
                 </div>

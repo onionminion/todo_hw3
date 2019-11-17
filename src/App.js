@@ -13,40 +13,40 @@ import ItemScreen from './components/item_screen/ItemScreen.js';
 import DatabaseTester from './test/DatabaseTester'
 
 class App extends Component {
-  render() {
-    const { auth } = this.props;
+    render() {
+        const { auth } = this.props;
 
-    // if auth is loaded then we render App.
-    // But if not then we doesn't render the one.
-    if (auth.isLoaded) {
-      return (
-        <BrowserRouter>
-          <div className="App">
-            <Navbar />
-            <Switch>
-              <Route exact path="/" component={HomeScreen} />
-              <Route path="/databaseTester" component={DatabaseTester} />
-              <Route path="/register" component={RegisterScreen} />
-              <Route path="/login" component={LoginScreen} />
-              <Route path="/todoList/:id/newItem" component={AddScreen} />
-              <Route path="/todoList/:id/:itemId" component={ItemScreen} />
-              <Route path="/todoList/:id" component={ListScreen} />
-              <Route path="/:any" component={HomeScreen} />
-            </Switch>
-          </div>
-        </BrowserRouter>
-      );
+        // if auth is loaded then we render App.
+        // But if not then we doesn't render the one.
+        if (auth.isLoaded) {
+            return (
+                <BrowserRouter>
+                    <div className="App">
+                        <Navbar />
+                        <Switch>
+                            <Route exact path="/" component={HomeScreen} />
+                            <Route path="/databaseTester" component={DatabaseTester} />
+                            <Route path="/register" component={RegisterScreen} />
+                            <Route path="/login" component={LoginScreen} />
+                            <Route path="/todoList/:id/new/:itemId" component={AddScreen} />
+                            <Route path="/todoList/:id/:itemId" component={ItemScreen} />
+                            <Route path="/todoList/:id" component={ListScreen} />
+                            <Route path="/:any" component={HomeScreen} />
+                        </Switch>
+                    </div>
+                </BrowserRouter>
+            );
+        }
+
+        return null;
     }
-
-    return null;
-  }
 }
 
 const mapStateToProps = state => ({
-  auth: state.firebase.auth,
+    auth: state.firebase.auth,
 });
 
 export default compose(
-  firebaseConnect(),
-  connect(mapStateToProps),
+    firebaseConnect(),
+    connect(mapStateToProps),
 )(App);

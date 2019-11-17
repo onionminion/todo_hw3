@@ -4,18 +4,16 @@ import { compose } from 'redux';
 import { Redirect, Link } from 'react-router-dom';
 import { DatePicker, Button } from 'react-materialize';
 import { firestoreConnect } from 'react-redux-firebase';
-import uuid from 'uuid'
 import { updateTodoListHandler } from '../../store/database/asynchHandler'
 
 class ItemScreen extends Component {
-    id = uuid.v4();
     newItem = {
         description: "Unknown",
         assigned_to: "Unknown",
         due_date: null,
         completed: false,
-        id: this.id,
-        key: this.id
+        id: this.props.itemId,
+        key: this.props.itemId
     }
     addNewItem = () => {
         var { props } = this;
@@ -36,6 +34,7 @@ class ItemScreen extends Component {
         this.newItem.completed = checked;
     }    
     render() {
+        console.log("Add screen");
         const todoList = this.props.todoList;
         if (!this.props.auth.uid) {
             return <Redirect to="/login" />;
@@ -89,7 +88,8 @@ class ItemScreen extends Component {
     }
 }
 const mapStateToProps = (state, ownProps) => {
-    const { id } = ownProps.match.params;
+    const id = ownProps.match.params.id;
+    const itemId = ownProps.match.params.itemId;
     const todoLists = state.firestore.ordered.todoLists;
     let todoList = null;
     if (todoLists) {
@@ -101,6 +101,7 @@ const mapStateToProps = (state, ownProps) => {
     if (todoList)
         todoList.id = id;
     return {
+        itemId,
         todoList,
         auth: state.firebase.auth,
     };
