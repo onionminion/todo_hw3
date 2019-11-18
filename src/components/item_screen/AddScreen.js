@@ -79,8 +79,9 @@ class ItemScreen extends Component {
                 </div>
                 <div>
                     <Link to={'/todoList/' + todoList.id}>
-                        <Button waves="green" flat onClick={()=>this.addNewItem()}>Submit</Button>
-                        <Button waves="red" flat>Cancel</Button>
+                        <Button style={{backgroundColor: "#AE585E"}} onClick={()=>this.addNewItem()}>Submit</Button>
+                        <span>&nbsp;</span>
+                        <Button style={{backgroundColor: "#AE585E"}}>Cancel</Button>
                     </Link>
                 </div>
             </div >

@@ -87,7 +87,7 @@ class ItemsList extends React.Component {
 		console.log("ItemsList: todoList.id " + todoList.id);
 		return (
 			<div className="todo-lists section">
-				<div className="row font-17">
+				<div className="row font-17 white-text" style={{backgroundColor: "#AE585E"}}>
 					<div className="col s4 padding-24 clickable" onClick={() => this.sortByTask()}>Task</div>
 					<div className="col s3 clickable" onClick={() => this.sortByDueDate()}>&nbsp;Due Date</div>
 					<div className="col s3 clickable" onClick={() => this.sortByStatus()}>Status</div>

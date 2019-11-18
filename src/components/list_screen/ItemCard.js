@@ -77,7 +77,7 @@ class ItemCard extends React.Component {
     render() {
         const item = this.props.item;
         return (
-            <div className="card z-depth-0 todo-list-link yellow lighten-4">
+            <div className="card z-depth-0 todo-list-link" style={{backgroundColor: "#F4E0D7"}}>
                 <div className="card-content grey-text text-darken-3">
                     <div className="row margin-bottom-0">
                         <div className="col s4">
